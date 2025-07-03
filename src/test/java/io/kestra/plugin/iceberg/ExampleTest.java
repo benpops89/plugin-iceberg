@@ -1,4 +1,4 @@
-package io.kestra.plugin.templates;
+package io.kestra.plugin.iceberg;
 
 import io.kestra.core.junit.annotations.KestraTest;
 import io.kestra.core.models.property.Property;
@@ -28,8 +28,8 @@ class ExampleTest {
         RunContext runContext = runContextFactory.of(Map.of("variable", "John Doe"));
 
         Example task = Example.builder()
-            .format(new Property<>("Hello {{ variable }}"))
-            .build();
+                .format(new Property<>("Hello {{ variable }}"))
+                .build();
 
         Example.Output runOutput = task.run(runContext);
 

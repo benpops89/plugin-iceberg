@@ -1,4 +1,4 @@
-package io.kestra.plugin.templates;
+package io.kestra.plugin.iceberg;
 
 import io.kestra.core.models.annotations.Plugin;
 import io.kestra.core.models.property.Property;
@@ -16,23 +16,13 @@ import org.slf4j.Logger;
 @EqualsAndHashCode
 @Getter
 @NoArgsConstructor
-@Schema(
-    title = "Short description for this task",
-    description = "Full description of this task"
-)
-@Plugin(
-    examples = {
-        @io.kestra.core.models.annotations.Example(
-            title = "Simple revert",
-            code = { "format: \"Text to be reverted\"" }
-        )
-    }
-)
+@Schema(title = "Short description for this task", description = "Full description of this task")
+@Plugin(examples = {
+        @io.kestra.core.models.annotations.Example(title = "Simple revert", code = {
+                "format: \"Text to be reverted\"" })
+})
 public class Example extends Task implements RunnableTask<Example.Output> {
-    @Schema(
-        title = "Short description for this input",
-        description = "Full description of this input"
-    )
+    @Schema(title = "Short description for this input", description = "Full description of this input")
     private Property<String> format;
 
     @Override
@@ -43,8 +33,8 @@ public class Example extends Task implements RunnableTask<Example.Output> {
         logger.debug(render);
 
         return Output.builder()
-            .child(new OutputChild(StringUtils.reverse(render)))
-            .build();
+                .child(new OutputChild(StringUtils.reverse(render)))
+                .build();
     }
 
     /**
@@ -53,20 +43,14 @@ public class Example extends Task implements RunnableTask<Example.Output> {
     @Builder
     @Getter
     public static class Output implements io.kestra.core.models.tasks.Output {
-        @Schema(
-            title = "Short description for this output",
-            description = "Full description of this output"
-        )
+        @Schema(title = "Short description for this output", description = "Full description of this output")
         private final OutputChild child;
     }
 
     @Builder
     @Getter
     public static class OutputChild implements io.kestra.core.models.tasks.Output {
-        @Schema(
-            title = "Short description for this output",
-            description = "Full description of this output"
-        )
+        @Schema(title = "Short description for this output", description = "Full description of this output")
         private final String value;
     }
 }

@@ -1,4 +1,4 @@
-package io.kestra.plugin.templates;
+package io.kestra.plugin.iceberg;
 
 import io.kestra.core.exceptions.IllegalVariableEvaluationException;
 import io.kestra.core.models.annotations.Plugin;
@@ -20,10 +20,7 @@ import java.util.Optional;
 @Getter
 @NoArgsConstructor
 @Plugin
-@Schema(
-    title = "Trigger an execution randomly",
-    description ="Trigger an execution randomly"
-)
+@Schema(title = "Trigger an execution randomly", description = "Trigger an execution randomly")
 public class Trigger extends AbstractTrigger implements PollingTriggerInterface, TriggerOutput<Trigger.Output> {
     @Builder.Default
     private final Duration interval = Duration.ofSeconds(60);
@@ -31,7 +28,8 @@ public class Trigger extends AbstractTrigger implements PollingTriggerInterface,
     protected Property<Double> min = Property.of(0.5);
 
     @Override
-    public Optional<Execution> evaluate(ConditionContext conditionContext, TriggerContext context) throws IllegalVariableEvaluationException {
+    public Optional<Execution> evaluate(ConditionContext conditionContext, TriggerContext context)
+            throws IllegalVariableEvaluationException {
         RunContext runContext = conditionContext.getRunContext();
 
         double random = Math.random();
@@ -41,11 +39,10 @@ public class Trigger extends AbstractTrigger implements PollingTriggerInterface,
 
         runContext.logger().info("Will create an execution");
         Execution execution = TriggerService.generateExecution(
-            this,
-            conditionContext,
-            context,
-            Output.builder().random(random).build()
-        );
+                this,
+                conditionContext,
+                context,
+                Output.builder().random(random).build());
 
         return Optional.of(execution);
     }

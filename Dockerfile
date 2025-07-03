@@ -1,4 +1,3 @@
-# for dev purposes only
-FROM kestra/kestra:latest
+FROM kestra/kestra:develop-no-plugins
 
-# COPY build/libs/* /app/plugins/ # this is already handled in docker-compose.yml
+COPY build/libs/* /app/plugins
